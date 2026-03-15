@@ -1,0 +1,1604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devika P Prasanth — Backend Engineer</title>
+    <meta name="description" content="Devika P Prasanth — Backend Engineer specializing in fintech APIs, Node.js, PostgreSQL and scalable backend systems. 4+ years experience building secure financial platforms.">
+
+<meta name="keywords" content="Devika P Prasanth, Backend Engineer, Node.js Developer, Fintech Backend Engineer, Strapi Developer, PostgreSQL Developer, API Developer">
+
+<meta name="author" content="Devika P Prasanth">
+<meta property="og:title" content="Devika P Prasanth — Backend Engineer">
+<meta property="og:description" content="Backend engineer specializing in secure fintech APIs and scalable backend systems using Node.js and PostgreSQL.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://devika.dev">
+<meta property="og:image" content="https://devika.dev/preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #0a0a0f;
+        --surface: #111118;
+        --card: #16161f;
+        --border: rgba(255, 255, 255, 0.07);
+        --accent: #6ee7c7;
+        --accent2: #a78bfa;
+        --accent3: #fbb86c;
+        --text: #e8e8f0;
+        --muted: #7070a0;
+        --heading: #f0f0ff;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 14px;
+        line-height: 1.7;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* cursor */
+      .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+      }
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-ring {
+        width: 36px;
+        height: 36px;
+        border: 1.5px solid var(--accent);
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          opacity 0.2s;
+        opacity: 0.5;
+      }
+
+      /* noise */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        background-size: 200px;
+        opacity: 0.35;
+      }
+
+      /* orbs */
+      .orbs {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.12;
+      }
+      .orb1 {
+        width: 600px;
+        height: 600px;
+        background: var(--accent);
+        top: -200px;
+        right: -100px;
+        animation: drift1 20s ease-in-out infinite alternate;
+      }
+      .orb2 {
+        width: 500px;
+        height: 500px;
+        background: var(--accent2);
+        bottom: 0;
+        left: -150px;
+        animation: drift2 18s ease-in-out infinite alternate;
+      }
+      .orb3 {
+        width: 350px;
+        height: 350px;
+        background: var(--accent3);
+        top: 50%;
+        left: 40%;
+        animation: drift3 22s ease-in-out infinite alternate;
+      }
+      @keyframes drift1 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(-60px, 80px) scale(1.1);
+        }
+      }
+      @keyframes drift2 {
+        from {
+          transform: translate(0, 0) scale(1.05);
+        }
+        to {
+          transform: translate(80px, -60px) scale(0.95);
+        }
+      }
+      @keyframes drift3 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(-40px, 50px) scale(1.15);
+        }
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 20px 0;
+        background: rgba(10, 10, 15, 0.7);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+      nav .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .nav-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--heading);
+        letter-spacing: -0.5px;
+        flex-shrink: 0;
+      }
+      .nav-logo span {
+        color: var(--accent);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      /* TOAST */
+      .toast {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--card);
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        z-index: 200;
+        opacity: 0;
+        transition: all 0.3s;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 0 80px;
+      }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1fr 390px;
+        gap: 60px;
+        align-items: center;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(110, 231, 199, 0.08);
+        border: 1px solid rgba(110, 231, 199, 0.2);
+        color: var(--accent);
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        animation: fadeUp 0.8s ease both 0.2s;
+        transition: opacity 0.3s;
+      }
+      .hero-tag::before {
+        content: "●";
+        font-size: 8px;
+        animation: blink 1.5s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+      .hero h1 {
+        font-family: "Instrument Serif", serif;
+        font-size: clamp(44px, 5.5vw, 76px);
+        color: var(--heading);
+        line-height: 1.05;
+        letter-spacing: -2px;
+        animation: fadeUp 0.8s ease both 0.3s;
+      }
+      .hero h1 em {
+        color: var(--accent);
+        font-style: italic;
+      }
+      .hero-subtitle {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 13px;
+        max-width: 500px;
+        line-height: 1.9;
+        animation: fadeUp 0.8s ease both 0.4s;
+        transition: opacity 0.3s;
+      }
+      .hero-actions {
+        margin-top: 36px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        animation: fadeUp 0.8s ease both 0.5s;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 28px;
+        border-radius: 6px;
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.2s;
+        cursor: none;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #0a0a0f;
+        font-weight: 500;
+      }
+      .btn-primary:hover {
+        background: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(110, 231, 199, 0.3);
+      }
+      .btn-outline {
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-2px);
+      }
+      .hero-stats {
+        margin-top: 48px;
+        display: flex;
+        gap: 40px;
+        animation: fadeUp 0.8s ease both 0.6s;
+      }
+      .stat-num {
+        font-family: "Syne", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--heading);
+        line-height: 1;
+      }
+      .stat-num span {
+        color: var(--accent);
+      }
+      .stat-label {
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      /* CODE CARD */
+      .hero-visual {
+        animation: fadeLeft 0.9s ease both 0.4s;
+      }
+      .hero-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+      }
+      .code-line {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      .code-num {
+        color: rgba(110, 231, 199, 0.2);
+        font-size: 11px;
+        width: 22px;
+        text-align: right;
+        flex-shrink: 0;
+        padding-top: 1px;
+      }
+      .code-text {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .c-keyword {
+        color: var(--accent2);
+      }
+      .c-fn {
+        color: var(--accent);
+      }
+      .c-str {
+        color: var(--accent3);
+      }
+      .c-var {
+        color: var(--text);
+      }
+      .typing-cursor {
+        display: inline-block;
+        width: 2px;
+        height: 13px;
+        background: var(--accent);
+        animation: blink 0.8s infinite;
+        vertical-align: middle;
+      }
+      .tech-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+      }
+      .pill {
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeLeft {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 100px 0;
+      }
+      .section-header {
+        margin-bottom: 60px;
+      }
+      .section-tag {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-tag::before {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: var(--accent);
+      }
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(30px, 4vw, 46px);
+        font-weight: 800;
+        color: var(--heading);
+        letter-spacing: -1.5px;
+      }
+
+      /* SKILLS */
+      #skills {
+        background: var(--surface);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .skill-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 28px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .skill-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+      .skill-card:nth-child(1)::after {
+        background: var(--accent);
+      }
+      .skill-card:nth-child(2)::after {
+        background: var(--accent2);
+      }
+      .skill-card:nth-child(3)::after {
+        background: var(--accent3);
+      }
+      .skill-card:nth-child(4)::after {
+        background: var(--accent);
+      }
+      .skill-card:nth-child(5)::after {
+        background: var(--accent2);
+      }
+      .skill-card:nth-child(6)::after {
+        background: var(--accent3);
+      }
+      .skill-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      .skill-card:hover::after {
+        transform: scaleX(1);
+      }
+      .skill-icon {
+        font-size: 22px;
+        margin-bottom: 14px;
+      }
+      .skill-cat {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--heading);
+        margin-bottom: 12px;
+      }
+      .skill-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .skill-tag {
+        font-size: 11px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        padding: 3px 10px;
+        border-radius: 4px;
+      }
+
+      /* EXPERIENCE */
+      .exp-timeline {
+        position: relative;
+      }
+      .exp-timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--accent),
+          var(--accent2),
+          transparent
+        );
+      }
+      .exp-item {
+        padding: 0 0 60px 40px;
+        position: relative;
+      }
+      .exp-item::before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 8px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        background: var(--bg);
+      }
+      .exp-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .exp-company {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+      }
+      .exp-date {
+        font-size: 11px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        padding: 3px 12px;
+        border-radius: 100px;
+      }
+      .exp-role {
+        font-family: "Syne", sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--heading);
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+        line-height: 1.3;
+      }
+      .exp-role span {
+        color: var(--accent);
+        font-size: 15px;
+        display: block;
+        margin-top: 4px;
+        font-weight: 600;
+      }
+      .exp-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .exp-bullets li {
+        color: var(--muted);
+        font-size: 13px;
+        padding-left: 20px;
+        position: relative;
+      }
+      .exp-bullets li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+      .exp-bullets li strong {
+        color: var(--text);
+        font-weight: 400;
+      }
+
+      /* PROJECTS */
+      #projects {
+        background: var(--surface);
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .project-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(110, 231, 199, 0.06),
+          transparent 60%
+        );
+      }
+      .project-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(110, 231, 199, 0.2);
+      }
+      .project-card:hover::before {
+        opacity: 1;
+      }
+      .project-num {
+        font-family: "Syne", sans-serif;
+        font-size: 44px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.04);
+        line-height: 1;
+        margin-bottom: 14px;
+      }
+      .project-title {
+        font-family: "Syne", sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--heading);
+        letter-spacing: -0.3px;
+        margin-bottom: 12px;
+      }
+      .project-desc {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+        margin-bottom: 8px;
+      }
+      .project-substack {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+      .project-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .stack-tag {
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        background: rgba(110, 231, 199, 0.07);
+        border: 1px solid rgba(110, 231, 199, 0.15);
+        color: var(--accent);
+      }
+
+      /* CONTACT */
+      .contact-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .contact-text h2 {
+        font-family: "Instrument Serif", serif;
+        font-size: clamp(32px, 4vw, 52px);
+        color: var(--heading);
+        line-height: 1.1;
+        letter-spacing: -1.5px;
+        margin-bottom: 20px;
+      }
+      .contact-text h2 em {
+        color: var(--accent);
+        font-style: italic;
+      }
+      .contact-text p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.9;
+        transition: opacity 0.3s;
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 32px;
+      }
+      .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px 22px;
+        text-decoration: none;
+        transition: all 0.2s;
+        color: var(--text);
+      }
+      .contact-link:hover {
+        border-color: var(--accent);
+        transform: translateX(6px);
+      }
+      .contact-link-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(110, 231, 199, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .contact-link-label {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .contact-link-val {
+        font-size: 12px;
+        color: var(--text);
+        margin-top: 2px;
+      }
+      .location-badge {
+        pointer-events: none;
+        border-style: dashed;
+      }
+
+      /* FORM */
+      .contact-form {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 36px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 16px;
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        outline: none;
+        transition: border-color 0.2s;
+        resize: vertical;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--accent);
+      }
+      .form-group textarea {
+        min-height: 100px;
+      }
+      .form-submit {
+        width: 100%;
+        padding: 14px;
+        background: var(--accent);
+        color: #0a0a0f;
+        border: none;
+        border-radius: 8px;
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: none;
+        transition: all 0.2s;
+      }
+      .form-submit:hover {
+        background: #fff;
+        box-shadow: 0 8px 30px rgba(110, 231, 199, 0.25);
+        transform: translateY(-1px);
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 32px 0;
+        border-top: 1px solid var(--border);
+      }
+      footer .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 14px;
+        color: var(--heading);
+      }
+      .footer-copy {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      @media (max-width: 960px) {
+        .hero-inner,
+        .contact-inner {
+          grid-template-columns: 1fr;
+        }
+        .hero-visual {
+          display: none;
+        }
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+        .container {
+          padding: 0 20px;
+        }
+        .contact-inner {
+          gap: 40px;
+        }
+      }
+      @media (max-width: 600px) {
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor">
+      <div class="cursor-dot" id="dot"></div>
+      <div class="cursor-ring" id="ring"></div>
+    </div>
+    <div class="orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="container">
+        <div class="nav-logo">devika<span>.</span>dev</div>
+        <ul class="nav-links">
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-inner">
+          <div>
+            Open to backend engineering roles in fintech, SaaS and product
+            companies. Available for relocation and remote opportunities.
+            <div class="hero-tag" id="hero-tag">
+              Available for backend opportunities · Dubai
+            </div>
+            <h1>
+              Backend<br /><em>Engineer</em><br />Building Secure<br />Scalable
+              Systems
+            </h1>
+            <p class="hero-subtitle" id="hero-subtitle">
+              Backend engineer specializing in secure fintech APIs and scalable
+              backend systems using Node.js and PostgreSQL.
+            </p>
+            <p
+              style="
+                margin-top: 14px;
+                color: #c8eaff;
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                max-width: 600px;
+                line-height: 1.55;
+              "
+            >
+              Fintech Experience: Forex exchange systems · Payment gateway
+              integrations · Secure transaction processing · Financial APIs
+            </p>
+            <p
+              style="
+                margin-top: 8px;
+                color: #c8eaff;
+                font-size: 12px;
+                letter-spacing: 0.3px;
+                max-width: 600px;
+                line-height: 1.5;
+              "
+            ></p>
+            <div class="hero-actions">
+              <a href="mailto:devuprasanth98@gmail.com" class="btn btn-primary"
+                >Get in touch →</a
+              >
+              <a href="#experience" class="btn btn-outline">View experience</a>
+              <a
+                href="Devika_Prasanth_CV.pdf"
+                class="btn btn-outline"
+                target="_blank"
+                >Download Resume</a
+              >
+              <a
+                href="https://github.com/DevikaPrasanth"
+                class="btn btn-outline"
+                target="_blank"
+                >View GitHub</a
+              >
+            </div>
+            <div class="hero-stats">
+              <div>
+                <div class="stat-num">4<span>+</span></div>
+                <div class="stat-label">Years exp.</div>
+              </div>
+              <div>
+                <div class="stat-num">12<span>+</span></div>
+                <div class="stat-label">Technologies</div>
+              </div>
+              <div>
+                <div class="stat-num">25<span>%</span></div>
+                <div class="stat-label">API speedup</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-card">
+              <div class="code-line">
+                <span class="code-num">1</span
+                ><span class="code-text"
+                  ><span class="c-keyword">const</span>
+                  <span class="c-var">engineer</span> = {</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">2</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;name:
+                  <span class="c-str">"Devika P Prasanth"</span>,</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">3</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;role:
+                  <span class="c-str">"Backend Engineer"</span>,</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">4</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;focus:
+                  <span class="c-str">"Secure Backend Systems"</span>,</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">5</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;stack: [<span class="c-str">"Node.js"</span>,
+                  <span class="c-str">"Strapi"</span>,</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">6</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str"
+                    >"PostgreSQL"</span
+                  >],</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">7</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;cloud: [<span class="c-str">"AWS"</span>,
+                  <span class="c-str">"Serverless"</span>],</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">8</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;specialties: [<span class="c-str"
+                    >"REST APIs"</span
+                  >,</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">9</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-str"
+                    >"Authentication"</span
+                  >, <span class="c-str">"Architecture"</span>],</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">10</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;<span class="c-fn">build</span>() {</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">11</span
+                ><span class="code-text"
+                  >&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">return</span>
+                  <span class="c-str">"Secure &amp; scalable 🚀"</span>;</span
+                >
+              </div>
+              <div class="code-line">
+                <span class="code-num">12</span
+                ><span class="code-text">&nbsp;&nbsp;}</span>
+              </div>
+              <div class="code-line">
+                <span class="code-num">13</span
+                ><span class="code-text"
+                  >}; <span class="typing-cursor"></span
+                ></span>
+              </div>
+              <div class="tech-pills">
+                <span class="pill">Node.js</span><span class="pill">Strapi</span
+                ><span class="pill">PostgreSQL</span>
+                <span class="pill">AWS</span><span class="pill">JWT / RBAC</span
+                ><span class="pill">REST APIs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag">Technical expertise</div>
+          <h2 class="section-title">Skills &amp; Stack</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <div class="skill-icon">⚙️</div>
+            <div class="skill-cat">Backend</div>
+            <div class="skill-items">
+              <span class="skill-tag">Node.js</span
+              ><span class="skill-tag">Express.js</span
+              ><span class="skill-tag">Strapi CMS</span>
+              <span class="skill-tag">NestJS</span
+              ><span class="skill-tag">AdonisJS</span
+              ><span class="skill-tag">Python</span
+              ><span class="skill-tag">Django</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">🔐</div>
+            <div class="skill-cat">APIs &amp; Security</div>
+            <div class="skill-items">
+              <span class="skill-tag">RESTful API Design</span
+              ><span class="skill-tag">JWT Authentication</span>
+              <span class="skill-tag">RBAC</span
+              ><span class="skill-tag">OTP Authentication</span
+              ><span class="skill-tag">OAuth</span
+              ><span class="skill-tag">API Security</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">🗄️</div>
+            <div class="skill-cat">Databases</div>
+            <div class="skill-items">
+              <span class="skill-tag">PostgreSQL</span
+              ><span class="skill-tag">MongoDB</span
+              ><span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Query Optimization</span
+              ><span class="skill-tag">Schema Design</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">🏗️</div>
+            <div class="skill-cat">Architecture</div>
+            <div class="skill-items">
+              <span class="skill-tag">Microservices</span
+              ><span class="skill-tag">MVC Architecture</span>
+              <span class="skill-tag">Clean Architecture</span
+              ><span class="skill-tag">Payment Gateways</span
+              ><span class="skill-tag">Transaction Systems</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">☁️</div>
+            <div class="skill-cat">Cloud &amp; DevOps</div>
+            <div class="skill-items">
+              <span class="skill-tag">AWS Lambda</span
+              ><span class="skill-tag">AWS S3</span
+              ><span class="skill-tag">CI/CD Pipelines</span>
+              <span class="skill-tag">Git</span
+              ><span class="skill-tag">GitHub</span
+              ><span class="skill-tag">GitLab</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-cat">Frontend &amp; Tools</div>
+            <div class="skill-items">
+              <span class="skill-tag">React</span
+              ><span class="skill-tag">Next.js</span
+              ><span class="skill-tag">HTML / CSS</span>
+              <span class="skill-tag">Postman</span
+              ><span class="skill-tag">Zoho CRM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag">Work history</div>
+          <h2 class="section-title">Experience</h2>
+        </div>
+        <div class="exp-timeline">
+          <div class="exp-item reveal">
+            <div class="exp-meta">
+              <div class="exp-company">Webandcrafts — Thrissur, Kerala</div>
+              <div class="exp-date">Apr 2022 – Present</div>
+            </div>
+            <div class="exp-role">
+              Software Developer
+              <span>Backend Engineer – Node.js &amp; Strapi</span>
+            </div>
+            <ul class="exp-bullets">
+              <li>
+                Designed backend systems for
+                <strong>UAE-based forex exchange platforms</strong> handling
+                secure currency transactions, payment integrations, and
+                high-integrity financial workflows
+              </li>
+              <li>
+                Built authentication systems including
+                <strong
+                  >OTP verification and role-based access control (RBAC)</strong
+                >
+                for secure, permission-driven admin dashboards
+              </li>
+              <li>
+                Integrated <strong>multiple payment gateways</strong> and
+                implemented real-time transaction processing pipelines ensuring
+                financial data integrity
+              </li>
+              <li>
+                Optimized database queries and backend logic —
+                <strong>improving API response performance by 25%</strong>
+              </li>
+              <li>
+                Architected scalable
+                <strong>SQL and NoSQL database schemas</strong> supporting
+                high-traffic fintech applications
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag">Selected work</div>
+          <h2 class="section-title">Projects</h2>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card reveal">
+            <div class="project-num">01</div>
+            <div class="project-title">Fintech Exchange Backend Platform</div>
+            <div class="project-substack">Node.js • Strapi CMS • PostgreSQL • AWS • Payment APIs</div>
+            <p class="project-desc">
+              Developed backend services for UAE-based forex exchange platforms
+              handling real-time currency transactions and secure financial
+              workflows. Implemented authentication systems, payment
+              integrations and database optimizations to support high-volume
+              financial operations.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Node.js</span
+              ><span class="stack-tag">Strapi CMS</span
+              ><span class="stack-tag">PostgreSQL</span>
+              <span class="stack-tag">AWS</span
+              ><span class="stack-tag">RBAC</span
+              ><span class="stack-tag">Payment APIs</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-num">02</div>
+            <div class="project-title">Recruitment Automation Platform</div>
+            <div class="project-substack">Node.js • Strapi CMS • Zoho CRM • Google Maps API • REST APIs</div>
+            <p class="project-desc">
+              Developed backend services for a recruitment automation system
+              integrating Zoho CRM. Implemented candidate workflow automation
+              and location-based search using Google Maps API for enterprise
+              hiring pipelines.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Node.js</span
+              ><span class="stack-tag">Strapi CMS</span
+              ><span class="stack-tag">Zoho CRM</span>
+              <span class="stack-tag">Google Maps API</span
+              ><span class="stack-tag">REST APIs</span>
+            </div>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-num">03</div>
+            <div class="project-title">Role-Based Admin Management System</div>
+            <div class="project-substack">Node.js • JWT Auth • RBAC • PostgreSQL • REST APIs</div>
+            <p class="project-desc">
+              Designed a secure backend admin management system with role-based
+              access control and permission-driven dashboards. Implemented
+              authentication workflows and secure API endpoints for enterprise
+              applications.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag">Node.js</span
+              ><span class="stack-tag">JWT Auth</span
+              ><span class="stack-tag">RBAC</span>
+              <span class="stack-tag">PostgreSQL</span
+              ><span class="stack-tag">REST APIs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="systems-built">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-tag">What I build</div>
+          <h2 class="section-title">Systems I’ve Built</h2>
+        </div>
+        <div
+          class="skill-card reveal"
+          style="
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(110, 231, 199, 0.15);
+          "
+        >
+          <ul class="exp-bullets" style="padding-left: 14px; margin-top: 10px">
+            <li>Financial transaction APIs for forex and payment systems</li>
+            <li>Role-based admin systems with RBAC and audit logging</li>
+            <li>Payment gateway integrations and settlement workflows</li>
+            <li>Secure authentication services with JWT, OTP and OAuth</li>
+            <li>
+              Distributed background job queue system for payment processing
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles" class="reveal">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Engineering philosophy</div>
+          <h2 class="section-title">How I Build Systems</h2>
+        </div>
+        <ul class="exp-bullets">
+          <li>
+            Design APIs with security-first architecture and clear access
+            control.
+          </li>
+          <li>
+            Build systems that scale horizontally using queues and background
+            processing.
+          </li>
+          <li>
+            Optimize database queries and schema design for high-volume
+            workloads.
+          </li>
+          <li>
+            Prioritize reliability in financial systems handling sensitive
+            transactions.
+          </li>
+          <li>
+            Write maintainable backend services using modular architecture.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-inner">
+          <div class="reveal">
+            <div class="section-tag">Let's connect</div>
+            <div class="contact-text">
+              <h2>Open to <em>new roles</em> & collaborations</h2>
+              <p id="contact-desc">
+                Currently based in Dubai, UAE and open to backend engineering
+                opportunities in fintech, SaaS and product-focused companies. If
+                you're building secure backend systems or scalable APIs, I'd
+                love to collaborate.
+              </p>
+              <p style="margin-top:10px; color:#c8eaff; font-size:12px; letter-spacing:.3px;">
+                🐙 <a href="https://github.com/DevikaPrasanth" target="_blank" style="color:#d2e9ff; text-decoration:none;">github.com/DevikaPrasanth</a>
+              </p>
+            </div>
+            <!-- <div class="contact-links">
+          <a href="mailto:devuprasanth98@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div><div class="contact-link-label">Email</div><div class="contact-link-val">devuprasanth98@gmail.com</div></div>
+          </a>
+          <a href="tel:+97156244651" class="contact-link" id="phone-link">
+            <div class="contact-link-icon">📱</div>
+            <div><div class="contact-link-label" id="phone-label">WhatsApp / Mobile</div><div class="contact-link-val" id="phone-val">+971 56 244 6651</div></div>
+          </a>
+          <a href="https://linkedin.com/in/devika-prasanth" target="_blank" class="contact-link">
+            <div class="contact-link-icon">💼</div>
+            <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-val">linkedin.com/in/devika-prasanth →</div></div>
+          </a>
+          <div class="contact-link location-badge">
+            <div class="contact-link-icon" id="location-icon">🇦🇪</div>
+            <div><div class="contact-link-label">Based in</div><div class="contact-link-val" id="location-val">Dubai, United Arab Emirates</div></div>
+          </div>
+        </div> -->
+          </div>
+          <div
+            class="contact-details-card reveal"
+            style="
+              background: var(--card);
+              border: 1px solid var(--border);
+              border-radius: 14px;
+              padding: 25px;
+              max-width: 420px;
+            "
+          >
+            <h3
+              style="
+                font-family: &quot;Syne&quot;, sans-serif;
+                font-size: 18px;
+                color: var(--heading);
+                margin-bottom: 10px;
+              "
+            >
+              Reach out directly
+            </h3>
+            <p
+              style="
+                color: var(--muted);
+                font-size: 13px;
+                margin-bottom: 16px;
+                line-height: 1.6;
+              "
+            >
+              Prefer direct messages? Use these channels to quickly connect
+              about backend roles, fintech projects, or contract work.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <a
+                href="mailto:devuprasanth98@gmail.com"
+                class="contact-link"
+                style="
+                  background: rgba(255, 255, 255, 0.03);
+                  border: 1px solid var(--border);
+                  padding: 12px 14px;
+                  border-radius: 8px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                  color: var(--text);
+                  text-decoration: none;
+                "
+                ><span>✉️</span><span>devuprasanth98@gmail.com</span></a
+              >
+              <a
+                href="tel:+97156244651"
+                class="contact-link"
+                style="
+                  background: rgba(255, 255, 255, 0.03);
+                  border: 1px solid var(--border);
+                  padding: 12px 14px;
+                  border-radius: 8px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                  color: var(--text);
+                  text-decoration: none;
+                "
+                ><span>📱</span><span>+971 56 244 6651 (WhatsApp)</span></a
+              >
+              <a
+                href="https://linkedin.com/in/devika-prasanth"
+                target="_blank"
+                class="contact-link"
+                style="
+                  background: rgba(255, 255, 255, 0.03);
+                  border: 1px solid var(--border);
+                  padding: 12px 14px;
+                  border-radius: 8px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                  color: var(--text);
+                  text-decoration: none;
+                "
+                ><span>💼</span><span>linkedin.com/in/devika-prasanth</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-name">Devika P Prasanth</div>
+        <div class="footer-copy">
+          Backend Engineer · <span id="footer-location">Dubai, UAE</span> · 2026
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ── CURSOR ──
+      const dot = document.getElementById("dot");
+      const ring = document.getElementById("ring");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.left = mx + "px";
+        dot.style.top = my + "px";
+      });
+      (function tick() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(tick);
+      })();
+      document
+        .querySelectorAll("a,button,.skill-card,.project-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            ring.style.width = "60px";
+            ring.style.height = "60px";
+            ring.style.opacity = "0.8";
+          });
+          el.addEventListener("mouseleave", () => {
+            ring.style.width = "36px";
+            ring.style.height = "36px";
+            ring.style.opacity = "0.5";
+          });
+        });
+
+      // ── SCROLL REVEAL ──
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting)
+              setTimeout(() => e.target.classList.add("visible"), i * 80);
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    </script>
+  </body>
+</html>
